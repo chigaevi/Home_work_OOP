@@ -124,7 +124,6 @@ worst_student.rate_hw(other_lecturer, 'Git', 10)
 worst_student.rate_hw(other_lecturer, 'Git', 10)
 
 print(best_student)
-print(best_student.grades)
 print(worst_student)
 print(cool_Reviewer)
 print(smart_Reviewer)
@@ -132,9 +131,6 @@ print(some_lecturer)
 print(other_lecturer)
 some_lecturer < other_lecturer
 best_student > worst_student
-
-Student_list = [best_student, worst_student]
-Lecturer_list = [some_lecturer, other_lecturer]
 
 # Одна функция решает обе задачи
 def av_rate_in_course(lists, course):
@@ -150,7 +146,9 @@ def av_rate_in_course(lists, course):
         res = sum_rate / amount_rates
     else:
         return print('Ошибка!')
-    return print(round(res,1))
+    return print(f'Средний бал по курсу {course}: {round(res,1)}')
 
+Student_list = [best_student, worst_student]
+Lecturer_list = [some_lecturer, other_lecturer]
 av_rate_in_course(Student_list,'Python')
 av_rate_in_course(Lecturer_list,'Git')
