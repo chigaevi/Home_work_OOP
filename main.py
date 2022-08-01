@@ -10,7 +10,7 @@ class Student:
     def __str__(self):
         res = f" Имя: {self.name}\n Фамилия: {self.surname}\n Средняя оценка за домашние задания:" \
               f" {self.average_rate()}  \n Курсы в процессе изучения: {self.courses_in_progress}\n" \
-              f" Завершенные курсы:{self.finished_courses}"
+              f" Завершенные курсы:{self.finished_courses}\n"
         return res
 
     def rate_hw(self, lecturer, course, grade):
@@ -41,7 +41,6 @@ class Student:
                 return print('Они равны')
         else:
             return 'Ошибка'
-
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -52,7 +51,7 @@ class Lecturer (Mentor):
         super().__init__(name, surname)
         self.grades = {}
     def __str__(self):
-        res = f" Имя: {self.name}\n Фамилия: {self.surname}\n Средняя оценка за лекции: {self.average_rate()}\n "
+        res = f" Имя: {self.name}\n Фамилия: {self.surname}\n Средняя оценка за лекции: {self.average_rate()}\n"
         return res
     def average_rate(self):
         sum_rate = 0
@@ -96,6 +95,9 @@ worst_student.finished_courses += ['Git']
 cool_Reviewer = Reviewer('Some', 'Buddy')
 cool_Reviewer.courses_attached += ['Python']
 
+smart_Reviewer = Reviewer('Lucky', 'Strike')
+smart_Reviewer.courses_attached += ['Python']
+
 some_lecturer = Lecturer('Cooper', 'Super')
 some_lecturer.courses_attached += ['Git']
 
@@ -105,22 +107,50 @@ other_lecturer.courses_attached += ['Git']
 cool_Reviewer.rate_hw(best_student, 'Python', 5)
 cool_Reviewer.rate_hw(best_student, 'Python', 10)
 cool_Reviewer.rate_hw(best_student, 'Python', 2)
+cool_Reviewer.rate_hw(best_student, 'Python', 10)
 
-cool_Reviewer.rate_hw(worst_student, 'Python', 2)
-cool_Reviewer.rate_hw(worst_student, 'Python', 2)
-cool_Reviewer.rate_hw(worst_student, 'Python', 2)
+
+smart_Reviewer.rate_hw(worst_student, 'Python', 2)
+smart_Reviewer.rate_hw(worst_student, 'Python', 2)
+smart_Reviewer.rate_hw(worst_student, 'Python', 2)
+smart_Reviewer.rate_hw(worst_student, 'Python', 3)
 
 best_student.rate_hw(some_lecturer, 'Git', 10)
 best_student.rate_hw(some_lecturer, 'Git', 5)
 best_student.rate_hw(some_lecturer, 'Git', 10)
 
-best_student.rate_hw(other_lecturer, 'Git', 10)
-best_student.rate_hw(other_lecturer, 'Git', 1)
-best_student.rate_hw(other_lecturer, 'Git', 10)
+worst_student.rate_hw(other_lecturer, 'Git', 10)
+worst_student.rate_hw(other_lecturer, 'Git', 10)
+worst_student.rate_hw(other_lecturer, 'Git', 10)
 
 print(best_student)
+print(best_student.grades)
 print(worst_student)
+print(cool_Reviewer)
+print(smart_Reviewer)
 print(some_lecturer)
 print(other_lecturer)
 some_lecturer < other_lecturer
 best_student > worst_student
+
+Student_list = [best_student, worst_student]
+Lecturer_list = [some_lecturer, other_lecturer]
+
+# Одна функция решает обе задачи
+def av_rate_in_course(lists, course):
+    sum_rate = 0
+    amount_rates = 0
+    for student in lists:
+        for course_name, rate in student.grades.items():
+            if course == course_name:
+                sum_rate += sum(rate)
+                amount_rates += len(rate)
+                continue
+    if amount_rates != 0:
+        res = sum_rate / amount_rates
+    else:
+        return print('Ошибка!')
+    return print(round(res,1))
+
+av_rate_in_course(Student_list,'Python')
+av_rate_in_course(Lecturer_list,'Git')
